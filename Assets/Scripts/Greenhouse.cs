@@ -23,19 +23,18 @@ public class Greenhouse : MonoBehaviour
     //TEMPORARY PLANT INFO
     public GameObject _tempPlant;
     //KEPT PLANT INFO
-    public GameObject _acceptedPlant;
+    //public GameObject _acceptedPlant;
     //GAME OBJECT LINKS
     public GameObject _plantLink;
     public GameObject _uiLink;
     public GameObject _deetsScreenLink;
-    public GameObject _buttonControllerLink;
     //LISTS
     public List<GameObject> _acceptedPlants = new List<GameObject>();
     public List<int> _currentPlantCosts = new List<int>();
-    public List<int> _deadPlantIndexList = new List<int>();
+    //public List<int> _deadPlantIndexList = new List<int>();
     //public List<int> _plantIndex = new List<int>();
     //VARIABLES
-    public bool _acceptedPlantClickedOn;
+    //public bool _acceptedPlantClickedOn;
     public bool _soldPlant = false;
     public bool _tempClickedOn;
     public bool _tempPlantExists;
@@ -86,7 +85,7 @@ public class Greenhouse : MonoBehaviour
         _supplementBudGrower = 0;
         _endOfDay = 0;
         _money = 10;
-        _plantPrefab.GetComponent<Plant>()._currentPlantIndex = 0;
+        //_plantPrefab.GetComponent<Plant>()._currentPlantIndex = 0;
         _plantPrefab.GetComponent<Plant>()._currentPlantHealth = 0;
     }
 
@@ -100,15 +99,13 @@ public class Greenhouse : MonoBehaviour
         _tempPlant.GetComponent<Plant>().PlantSuffixGenerator();
         _tempPlant.GetComponent<Plant>().PlantHealthGenerator();
         _tempPlant.GetComponent<Plant>().PlantMaxCostGenerator();
+        _tempPlant.GetComponent<Plant>().PlantCurrentCostGenerator();
         _tempName = _tempPlant.GetComponent<Plant>().GetName();
         _tempSuffix = _tempPlant.GetComponent<Plant>().GetSuffix();
         _tempHealth = _tempPlant.GetComponent<Plant>().GetHealth();
         _maxTempCost = _tempPlant.GetComponent<Plant>().GetMaxCost();
-        _currentTempCost = _maxTempCost / (_tempHealth / 100);
+        _currentTempCost = _tempPlant.GetComponent<Plant>().GetCurrentCost();
         _endOfDay += 1;
-        Debug.Log(_plantParentTop.name + " has " + _plantParentTop.transform.childCount + " children");
-        Debug.Log(_plantParentMid.name + " has " + _plantParentMid.transform.childCount + " children");
-        Debug.Log(_plantParentLow.name + " has " + _plantParentLow.transform.childCount + " children");
         // This section lowers the health of all plants if supplements weren't used at the end of the day.
         if (_supplementUsed == false)
         {
@@ -130,7 +127,7 @@ public class Greenhouse : MonoBehaviour
         {
             if (_acceptedPlants[i].GetComponent<Plant>()._currentPlantCost < _cheapestPlant || _cheapestPlantIndex == -1)
             {
-                _cheapestPlant = (_acceptedPlants[i].GetComponent<Plant>()._currentPlantIndex);
+                _cheapestPlant = ((int)Math.Round(_acceptedPlants[i].GetComponent<Plant>().GetCurrentCost()));
                 _cheapestPlantIndex = i;
                 //_currentPlantCosts[i] = (int)Math.Round(_acceptedPlants[i].GetComponent<Plant>()._currentPlantCost);
                 Debug.Log("Cheapest Plant is: " + (_cheapestPlant));
@@ -139,19 +136,6 @@ public class Greenhouse : MonoBehaviour
         return _cheapestPlant;
     }
 
-
-    //public int CheapestPlant()
-    //{
-    //    int _cheapestPlant = 0;
-    //    int _cheapestPlantLocation = -1;
-
-    //    for (int i = 0; i < _cheapestPlant; i++)
-    //    {
-    //        _cheapestPlantLocation = i;
-    //    }
-    //    return _cheapestPlant;
-    //}
-
     public void AcceptPlant()
     {
         // NEED TO GET THE EXISTING BUTTONS TO GRAB THIS DATA INSTEAD OF MOVING IT AS AN EXISTING BUTTON
@@ -159,24 +143,23 @@ public class Greenhouse : MonoBehaviour
         {
             CheapestPlant(_currentPlantCosts);
             _noPlants = false;
-            _plantPrefab.GetComponent<Plant>()._currentPlantIndex += 1;
-            _plantPrefab.GetComponent<Plant>().GetMaxCost();
-            Debug.Log(_plantPrefab.GetComponent<Plant>()._currentPlantIndex.ToString());
+            //_plantPrefab.GetComponent<Plant>()._currentPlantIndex += 1;
+            //_plantPrefab.GetComponent<Plant>().GetMaxCost();
+            //Debug.Log(_plantPrefab.GetComponent<Plant>()._currentPlantIndex.ToString());
             //if (_plantPrefab.GetComponent<Plant>()._currentPlantIndex == 10)
             //{
             //    _plantPrefab.GetComponent<Plant>()._currentPlantIndex = 9;
             //}
             //_infoText = _tempPlant.GetComponentInChildren<TextMeshProUGUI>();
-            _acceptedPlant = _tempPlant;
-            _acceptedPlants.Add(_acceptedPlant);
+            _acceptedPlants.Add(_tempPlant);
             //Debug.Log(_acceptedPlants[0].GetComponent<Plant>()._currentPlantIndex);
             _tempPlantExists = false;
-            _acceptedPlantClickedOn = _tempClickedOn;
+            //_acceptedPlantClickedOn = _tempClickedOn;
             //_infoText.text = _tempName + " " + _tempSuffix;
-            GameObject button = GameObject.FindWithTag("Plants");
+            //GameObject button = GameObject.FindWithTag("Plants");
             _uiLink.GetComponent<UIController>().AcceptedPlantText();
             //EndGame();
-            _currentPlantCosts.Clear();
+            //_currentPlantCosts.Clear();
         }
         else
         {
@@ -202,16 +185,16 @@ public class Greenhouse : MonoBehaviour
             //int i = _currentPlantCosts[0];
             //_acceptedPlants.RemoveAt(_acceptedPlants.Count - 1);
             _acceptedPlants.RemoveAt(0);
-            _acceptedPlant = _tempPlant;
-            _acceptedPlants.Insert(0, _acceptedPlant);
+            //_acceptedPlant = _tempPlant;
+            //_acceptedPlants.Insert(0, _acceptedPlant);
             _tempPlantExists = false;
-            _acceptedPlantClickedOn = _tempClickedOn;
-            _infoText = _tempPlant.GetComponentInChildren<TextMeshProUGUI>();
+            //_acceptedPlantClickedOn = _tempClickedOn;
+            //_infoText = _tempPlant.GetComponentInChildren<TextMeshProUGUI>();
             Debug.Log("PLANT NAMES ARE BEING CALLED");
             //_infoText.text = _tempName + " " + _tempSuffix;
             GameObject button = GameObject.FindWithTag("Plants");
             //_money = _money += (int)Math.Round(_acceptedPlants[i].GetComponent<Plant>()._currentPlantCost);
-            _deadPlantIndexList.Clear();
+            //_deadPlantIndexList.Clear();
 
             //EndGame();
 
@@ -295,9 +278,8 @@ public class Greenhouse : MonoBehaviour
                 {
                     Destroy(g);
                     _acceptedPlants.Clear();
-                    _uiLink.GetComponent<UIController>().PlotsAreEmpty();
                     _noPlants = true;
-                    _plantPrefab.GetComponent<Plant>()._currentPlantIndex = 0;
+                    //_plantPrefab.GetComponent<Plant>()._currentPlantIndex = 0;
                 }
             }
         }
@@ -306,7 +288,7 @@ public class Greenhouse : MonoBehaviour
     //Update is called once per frame
     public void Update()
     {
-        int _deathPlantIndex;
+        //int _deathPlantIndex;
         for (int i = 0; i < _acceptedPlants.Count; i++)
         {
             _acceptedPlants[i].GetComponent<Plant>()._currentPlantCost = _acceptedPlants[i].GetComponent<Plant>()._maxPlantCost * (_acceptedPlants[i].GetComponent<Plant>()._currentPlantHealth / 100);
@@ -323,24 +305,24 @@ public class Greenhouse : MonoBehaviour
 
             if (_acceptedPlants[i].GetComponent<Plant>()._currentPlantHealth <= 0)
             {
-                _deathPlantIndex = i;
-                _deadPlantIndexList.Add(_deathPlantIndex);
+                //_deathPlantIndex = i;
+                //_deadPlantIndexList.Add(_deathPlantIndex);
                 _acceptedPlants[i].GetComponent<Plant>()._plantDied = true;
             }
 
             if (_acceptedPlants[i].GetComponent<Plant>()._plantDied == true)
             {
-                _acceptedPlant.GetComponent<Plant>()._currentPlantIndex = _deadPlantIndexList[0];
+                //_acceptedPlant.GetComponent<Plant>()._currentPlantIndex = _deadPlantIndexList[0];
                 _acceptedPlants[i].GetComponent<Plant>().DieTime();
                 _acceptedPlants.Remove(_acceptedPlants[i]);
                 //_deadPlantIndexList.Clear();
             }
         }
 
-        for (int i = 0; i < _acceptedPlants.Count; i++)
-        {
-            _acceptedPlants[i].GetComponent<Plant>()._currentPlantIndex = i;
-        }
+        //for (int i = 0; i < _acceptedPlants.Count; i++)
+        //{
+        //    _acceptedPlants[i].GetComponent<Plant>()._currentPlantIndex = i;
+        //}
     }
 }
 

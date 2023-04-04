@@ -26,7 +26,7 @@ public class Plant : MonoBehaviour
     public float _currentPlantHealth;
     public float _maxPlantCost;
     public float _currentPlantCost;
-    public int _currentPlantIndex;
+    //public int _currentPlantIndex;
     public bool _plantDied;
 
     void Awake()
@@ -143,6 +143,16 @@ public class Plant : MonoBehaviour
 
     public float GetMaxCost(){
         return _plantCost;
+    }
+
+    public void PlantCurrentCostGenerator()
+    {
+        _currentPlantCost /= _currentPlantHealth / 100;
+    }
+
+    public float GetCurrentCost()
+    {
+        return _currentPlantCost;
     }
 
     public void DieTime()

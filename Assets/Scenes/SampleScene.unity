@@ -3320,10 +3320,42 @@ MonoBehaviour:
   - {fileID: 732021337}
   - {fileID: 1992965115}
   - {fileID: 335796033}
+  _displayPublicPlantNamesList:
+  - {fileID: 1308655804}
+  - {fileID: 1308655804}
+  - {fileID: 1308655804}
+  - {fileID: 1308655804}
+  - {fileID: 1308655804}
+  - {fileID: 1308655804}
+  - {fileID: 1308655804}
+  - {fileID: 1308655804}
+  - {fileID: 1308655804}
+  - {fileID: 1308655804}
+  _displayPlantHealthList:
+  - {fileID: 401364535}
+  - {fileID: 401364535}
+  - {fileID: 401364535}
+  - {fileID: 401364535}
+  - {fileID: 401364535}
+  - {fileID: 401364535}
+  - {fileID: 401364535}
+  - {fileID: 401364535}
+  - {fileID: 401364535}
+  - {fileID: 401364535}
+  _displayPlantCostsList:
+  - {fileID: 1283744357}
+  - {fileID: 1283744357}
+  - {fileID: 1283744357}
+  - {fileID: 1283744357}
+  - {fileID: 1283744357}
+  - {fileID: 1283744357}
+  - {fileID: 1283744357}
+  - {fileID: 1283744357}
+  - {fileID: 1283744357}
+  - {fileID: 1283744357}
   _greenhouseLink: {fileID: 1667723795}
   _plantLink: {fileID: 2071719903}
   _deetsScreenLink: {fileID: 919303731}
-  _buttonControllerLink: {fileID: 2139560267}
 --- !u!4 &680255188
 Transform:
   m_ObjectHideFlags: 0
@@ -3337,7 +3369,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &705507993
 GameObject:
@@ -5441,7 +5473,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 219.1939, y: 174.3}
+  m_SizeDelta: {x: 219.1939, y: 268.8619}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1046007234
 MonoBehaviour:
@@ -6521,30 +6553,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 919303731}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 680255187}
-        m_TargetAssemblyTypeName: UIController, Assembly-CSharp
-        m_MethodName: CurrentInfoText
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
       - m_Target: {fileID: 680255187}
         m_TargetAssemblyTypeName: UIController, Assembly-CSharp
         m_MethodName: SellingPlantDisclaimer
@@ -6561,6 +6569,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: UIController, Assembly-CSharp
         m_MethodName: DisplayPublicPlantData
         m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 919303731}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -7953,15 +7973,11 @@ MonoBehaviour:
   _supplementUsed: 0
   _plantPrefab: {fileID: 3392339733486583470, guid: ff6576f4db6da3f49a39301d547f29e2, type: 3}
   _tempPlant: {fileID: 0}
-  _acceptedPlant: {fileID: 0}
   _plantLink: {fileID: 2071719903}
   _uiLink: {fileID: 680255186}
   _deetsScreenLink: {fileID: 919303731}
-  _buttonControllerLink: {fileID: 0}
   _acceptedPlants: []
   _currentPlantCosts: 
-  _deadPlantIndexList: 
-  _acceptedPlantClickedOn: 0
   _soldPlant: 0
   _tempClickedOn: 0
   _tempPlantExists: 0
@@ -8329,18 +8345,6 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Greenhouse, Assembly-CSharp
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -9378,7 +9382,6 @@ MonoBehaviour:
   _currentPlantHealth: 1
   _maxPlantCost: 0
   _currentPlantCost: 0
-  _currentPlantIndex: 0
   _plantDied: 0
 --- !u!4 &2071719905
 Transform:
@@ -9633,58 +9636,3 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2114348663}
   m_CullTransparentMesh: 1
---- !u!1 &2139560267
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2139560269}
-  - component: {fileID: 2139560268}
-  m_Layer: 0
-  m_Name: ButtonController
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &2139560268
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2139560267}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0657d23b28be761499d2961613de1ffc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  button0: {fileID: 1299024918}
-  button1: {fileID: 285640208}
-  button2: {fileID: 1664322686}
-  button3: {fileID: 1963297405}
-  button4: {fileID: 395372845}
-  button5: {fileID: 934932497}
-  button6: {fileID: 186664789}
-  button7: {fileID: 120833207}
-  button8: {fileID: 554779493}
-  button9: {fileID: 856942009}
-  buttonList: []
---- !u!4 &2139560269
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2139560267}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 588.7269, y: 297.3415, z: 480.06607}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
