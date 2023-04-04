@@ -37,7 +37,6 @@ public class Greenhouse : MonoBehaviour
     //public bool _acceptedPlantClickedOn;
     public bool _soldPlant = false;
     public bool _tempClickedOn;
-    public bool _tempPlantExists;
     public bool _noPlants = true;
     public string _tempName;
     public string _tempSuffix;
@@ -93,7 +92,6 @@ public class Greenhouse : MonoBehaviour
     {
         // Spawn the object, same rotation as the parent object. Add that new object to a List so we can keep track of it.
         _tempPlant = Instantiate(_plantPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-        _tempPlantExists = true;
         // Tell the plant to create random values. It doesn't have a return value so we don't have to save anything.
         _tempPlant.GetComponent<Plant>().PlantNameGenerator();
         _tempPlant.GetComponent<Plant>().PlantSuffixGenerator();
@@ -143,20 +141,7 @@ public class Greenhouse : MonoBehaviour
         {
             CheapestPlant(_currentPlantCosts);
             _noPlants = false;
-            //_plantPrefab.GetComponent<Plant>()._currentPlantIndex += 1;
-            //_plantPrefab.GetComponent<Plant>().GetMaxCost();
-            //Debug.Log(_plantPrefab.GetComponent<Plant>()._currentPlantIndex.ToString());
-            //if (_plantPrefab.GetComponent<Plant>()._currentPlantIndex == 10)
-            //{
-            //    _plantPrefab.GetComponent<Plant>()._currentPlantIndex = 9;
-            //}
-            //_infoText = _tempPlant.GetComponentInChildren<TextMeshProUGUI>();
             _acceptedPlants.Add(_tempPlant);
-            //Debug.Log(_acceptedPlants[0].GetComponent<Plant>()._currentPlantIndex);
-            _tempPlantExists = false;
-            //_acceptedPlantClickedOn = _tempClickedOn;
-            //_infoText.text = _tempName + " " + _tempSuffix;
-            //GameObject button = GameObject.FindWithTag("Plants");
             _uiLink.GetComponent<UIController>().AcceptedPlantText();
             //EndGame();
             //_currentPlantCosts.Clear();
@@ -177,32 +162,16 @@ public class Greenhouse : MonoBehaviour
             //Report that there are no spaces left.
             _uiLink.GetComponent<UIController>().NoSpace();
         // Find lowest value plant. Remove plant. Add cost of plant to wallet. Play sell noise. Add new plant.
-
-        //foreach (GameObject p in _acceptedPlants)
-        //{
-        //    p.GetComponent<Plant>()._currentPlantCost
-        //}
-            //int i = _currentPlantCosts[0];
-            //_acceptedPlants.RemoveAt(_acceptedPlants.Count - 1);
             _acceptedPlants.RemoveAt(0);
-            //_acceptedPlant = _tempPlant;
-            //_acceptedPlants.Insert(0, _acceptedPlant);
-            _tempPlantExists = false;
-            //_acceptedPlantClickedOn = _tempClickedOn;
-            //_infoText = _tempPlant.GetComponentInChildren<TextMeshProUGUI>();
             Debug.Log("PLANT NAMES ARE BEING CALLED");
-            //_infoText.text = _tempName + " " + _tempSuffix;
             GameObject button = GameObject.FindWithTag("Plants");
             //_money = _money += (int)Math.Round(_acceptedPlants[i].GetComponent<Plant>()._currentPlantCost);
-            //_deadPlantIndexList.Clear();
-
             //EndGame();
 
     }
 
     public void RejectPlant()
     {
-        _tempPlantExists = false;
         Destroy(_tempPlant);
         _currentPlantCosts.Clear();
     }

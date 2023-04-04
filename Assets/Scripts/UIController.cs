@@ -33,39 +33,25 @@ public class UIController : MonoBehaviour
     public TMP_Text _displayHealthInfoText;
     public TMP_Text _displayPriceInfoText;
     public TMP_Text _displayNoSpace;
+    public TMP_Text _displayNoPlant;
     public TMP_Text _displayGameOver;
     public TMP_Text _displayRestart;
+    //Lists
     public List<TMP_Text> _displayPlantNamesList;
     public List<TMP_Text> _displayPublicPlantNamesList;
     public List<TMP_Text> _displayPlantHealthList;
     public List<TMP_Text> _displayPlantCostsList;
 
-    //public TMP_Text _displayCurrentPlantName;
     //Links to Game Objects.
     public GameObject _greenhouseLink;
     public GameObject _plantLink;
     public GameObject _deetsScreenLink;
-    //Lists
-    //public List<string> _buttonPlantNames = new List<string> {"Plant","Crabothy","Jason","Crustacy"};
-    //public List<TMP_Text> _plantNameTextBoxList;
 
     // Start is called before the first frame update
     void Start()
     {
         _displayStartingScene.text = ("You are the brand new gardener of a greenhouse owned by evil alien overlords. They have told you that you have twenty days to make them delicious plants to eat, or the next gardener will replace you. You have access to supplements that cost 10 money each, which keep your plants healthy and expensive.");
     }
-
-    //public void IntroduceNewPlant(string _tempName, string _tempSuffix, float _tempHealth, float _tempCost)
-    //{
-    //    _plantLink.GetComponent<Plant>().PlantNameGenerator();
-    //    _plantLink.GetComponent<Plant>().PlantSuffixGenerator();
-    //    _plantLink.GetComponent<Plant>().PlantHealthGenerator();
-    //    _plantLink.GetComponent<Plant>().PlantCostGenerator();
-    //    _tempName = _plantLink.GetComponent<Plant>().GetName();
-    //    _tempSuffix = _plantLink.GetComponent<Plant>().GetSuffix();
-    //    _tempHealth = _plantLink.GetComponent<Plant>().GetHealth();
-    //    _tempCost = _plantLink.GetComponent<Plant>().GetCost();
-    //}
 
     public void AddText(string textToAdd)
     {
@@ -89,12 +75,17 @@ public class UIController : MonoBehaviour
 
     public void AcceptedPlantText()
     {
-        _displayTempPlantedPlant.text = ("You have planted " + (_greenhouseLink.GetComponent<Greenhouse>()._tempName) + " " + (_greenhouseLink.GetComponent<Greenhouse>()._tempSuffix) + " with " + (_greenhouseLink.GetComponent<Greenhouse>()._tempHealth.ToString()) + " health and a current price of " + (_greenhouseLink.GetComponent<Greenhouse>()._currentTempCost.ToString("$##.##") + "."));
+        _displayTempPlantedPlant.text = ("You have planted " + (_greenhouseLink.GetComponent<Greenhouse>()._tempName) + " " + (_greenhouseLink.GetComponent<Greenhouse>()._tempSuffix) + " with " + (_greenhouseLink.GetComponent<Greenhouse>()._tempHealth.ToString()) + " health and a current price of $" + (_greenhouseLink.GetComponent<Greenhouse>()._tempPlant.GetComponent<Plant>().GetCurrentCost().ToString()) + ".");
     }
 
     public void NoSpace()
     {
         _displayNoSpace.text = ("You did not have any space, so you sold 'lowest plant name, health, for price' to make space. You then planted " + (_greenhouseLink.GetComponent<Greenhouse>()._tempName) + " " + (_greenhouseLink.GetComponent<Greenhouse>()._tempSuffix) + " with " + (_greenhouseLink.GetComponent<Greenhouse>()._tempHealth.ToString()) + " health and a price of " + (_greenhouseLink.GetComponent<Greenhouse>()._currentTempCost.ToString("$##.##") + "."));
+    }
+
+    public void NoPlant()
+    {
+        _displayNoPlant.text = ("There is no plant here.");
     }
 
     //Updates plant names for buttons
@@ -108,8 +99,6 @@ public class UIController : MonoBehaviour
              }
         }        
     }
-
-
 
     public int FindCheapestPlant(int index)
     {
@@ -136,22 +125,25 @@ public class UIController : MonoBehaviour
             if (i < _greenhouseLink.GetComponent<Greenhouse>()._acceptedPlants.Count)
             {
                 _displayPublicPlantNamesList[i].text = (_greenhouseLink.GetComponent<Greenhouse>()._acceptedPlants[index].GetComponent<Plant>().GetName() + " " + (_greenhouseLink.GetComponent<Greenhouse>()._acceptedPlants[index].GetComponent<Plant>().GetSuffix()));
+                Debug.Log(_greenhouseLink.GetComponent<Greenhouse>()._acceptedPlants[index].GetComponent<Plant>().GetName() + " " + (_greenhouseLink.GetComponent<Greenhouse>()._acceptedPlants[index].GetComponent<Plant>().GetSuffix()));
             }
             if (i < _greenhouseLink.GetComponent<Greenhouse>()._acceptedPlants.Count)
             {
                 _displayPlantHealthList[i].text = ("Health: " + _greenhouseLink.GetComponent<Greenhouse>()._acceptedPlants[index].GetComponent<Plant>().GetHealth());
+                Debug.Log(_greenhouseLink.GetComponent<Greenhouse>()._acceptedPlants[index].GetComponent<Plant>().GetHealth());
             }
             if (i < _greenhouseLink.GetComponent<Greenhouse>()._acceptedPlants.Count)
             {
                 _displayPlantCostsList[i].text = ("Price: " + _greenhouseLink.GetComponent<Greenhouse>()._acceptedPlants[index].GetComponent<Plant>().GetCurrentCost());
+                Debug.Log(_greenhouseLink.GetComponent<Greenhouse>()._acceptedPlants[index].GetComponent<Plant>().GetCurrentCost());
             }
-            Debug.Log(_greenhouseLink.GetComponent<Greenhouse>()._acceptedPlants[index].GetComponent<Plant>().GetName() + " " + (_greenhouseLink.GetComponent<Greenhouse>()._acceptedPlants[index].GetComponent<Plant>().GetSuffix()));
-            Debug.Log(_greenhouseLink.GetComponent<Greenhouse>()._acceptedPlants[index].GetComponent<Plant>().GetHealth());
-            Debug.Log(_greenhouseLink.GetComponent<Greenhouse>()._acceptedPlants[index].GetComponent<Plant>().GetCurrentCost());
+            else
+            {
+                NoPlant();
+                _deetsScreenLink.SetActive(false);
+            }
         }
     }
-
-
 
     public void NotEnoughMoneyText()
     {
@@ -215,23 +207,6 @@ public class UIController : MonoBehaviour
         {
             _displaySoldText.text = ("You sold " + (_greenhouseLink.GetComponent<Greenhouse>()._tempName) + " " + (_greenhouseLink.GetComponent<Greenhouse>()._tempSuffix) + " for " + (_greenhouseLink.GetComponent<Greenhouse>()._currentTempCost.ToString("#.##.")));
         }
-
-
-        //if (_greenhouseLink.GetComponent<Greenhouse>()._acceptedPlantClickedOn == true)
-        //{
-        //    _deetsScreenLink.SetActive(true);
-        //    Debug.Log("Hola");
-        //    //_plantLink.GetComponent<Plant>().OnButtonClicked();
-        //}
-
-        //if (_greenhouseLink.GetComponent<Greenhouse>()._acceptedPlantClickedOn == true)
-        //{
-        //    _deetsScreenLink.SetActive(true);
-        //    Debug.Log("This has read the clicked plant.");
-        //}
-
-        //if () == true)
-
         if (_plantLink.GetComponent<Plant>()._plantDied == true)
         {
             Debug.Log("PLANT DED");
