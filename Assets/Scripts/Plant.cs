@@ -15,7 +15,7 @@ public class Plant : MonoBehaviour
     public List<string> _plantSuffix = new List<string>();
     // public List<int> _plantHealth = new List<int>();
     public float _plantHealth = 1;
-    public float _plantCost;
+    public float _plantCost = 0f;
 
     //Clicked Bool
     public bool _plantButtonClicked;

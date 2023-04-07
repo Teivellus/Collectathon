@@ -44,7 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2731aa33d6c1cb641bedfc6565f4d082, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _plantButton: {fileID: 0}
   _plantNames:
   - Cerberus
   - Lamia
@@ -78,8 +77,7 @@ MonoBehaviour:
   _plantButtonClicked: 0
   _currentPlantName: 
   _currentPlantSuffix: 
-  _currentPlantHealth: -21
+  _currentPlantHealth: 0
   _maxPlantCost: 0
   _currentPlantCost: 0
-  _currentPlantIndex: 10
   _plantDied: 0

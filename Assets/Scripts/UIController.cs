@@ -14,6 +14,7 @@ public class UIController : MonoBehaviour
     //Text Displays
     public TMP_Text _displayMoney;
     public TMP_Text _displayDay;
+    public TMP_Text _displaySupplements;
     public TMP_Text _displayStartingScene;
     public TMP_Text _displayNewPlant;
     public TMP_Text _displayTempPlantName;
@@ -26,6 +27,7 @@ public class UIController : MonoBehaviour
     public TMP_Text _displayNotEnoughMoney;
     public TMP_Text _displayBoughtSupplement;
     public TMP_Text _displayNoSupplements;
+    public TMP_Text _displaySupplementUsed;
     public TMP_Text _displayPlantHealing;
     public TMP_Text _displayPlantDecay;
     public TMP_Text _displayPlantDied;
@@ -75,7 +77,7 @@ public class UIController : MonoBehaviour
 
     public void AcceptedPlantText()
     {
-        _displayTempPlantedPlant.text = ("You have planted " + (_greenhouseLink.GetComponent<Greenhouse>()._tempName) + " " + (_greenhouseLink.GetComponent<Greenhouse>()._tempSuffix) + " with " + (_greenhouseLink.GetComponent<Greenhouse>()._tempHealth.ToString()) + " health and a current price of $" + (_greenhouseLink.GetComponent<Greenhouse>()._tempPlant.GetComponent<Plant>().GetCurrentCost().ToString()) + ".");
+        _displayTempPlantedPlant.text = ("You have planted a " + (_greenhouseLink.GetComponent<Greenhouse>()._tempName) + " " + (_greenhouseLink.GetComponent<Greenhouse>()._tempSuffix) + ".");
     }
 
     public void NoSpace()
@@ -89,7 +91,7 @@ public class UIController : MonoBehaviour
     }
 
     //Updates plant names for buttons
-    public void updatePlantList() {
+    public void UpdatePlantList() {
         for (int i = 0; i < _displayPlantNamesList.Count; i++)
         {    
              if (i < _greenhouseLink.GetComponent<Greenhouse>()._acceptedPlants.Count) {
@@ -120,27 +122,26 @@ public class UIController : MonoBehaviour
     //Shows Name and Suffix
     public void DisplayPublicPlantData(int index)
     {
+        if (index >= _greenhouseLink.GetComponent<Greenhouse>()._acceptedPlants.Count)
+        {
+            // The index is out of range, so do nothing or display an error message.
+            Debug.Log("Else is being used.");
+            NoPlant();
+            _deetsScreenLink.SetActive(false);
+            return;
+        }
         for (int i = 0; i < _displayPublicPlantNamesList.Count; i++)
         {
             if (i < _greenhouseLink.GetComponent<Greenhouse>()._acceptedPlants.Count)
             {
                 _displayPublicPlantNamesList[i].text = (_greenhouseLink.GetComponent<Greenhouse>()._acceptedPlants[index].GetComponent<Plant>().GetName() + " " + (_greenhouseLink.GetComponent<Greenhouse>()._acceptedPlants[index].GetComponent<Plant>().GetSuffix()));
                 Debug.Log(_greenhouseLink.GetComponent<Greenhouse>()._acceptedPlants[index].GetComponent<Plant>().GetName() + " " + (_greenhouseLink.GetComponent<Greenhouse>()._acceptedPlants[index].GetComponent<Plant>().GetSuffix()));
-            }
-            if (i < _greenhouseLink.GetComponent<Greenhouse>()._acceptedPlants.Count)
-            {
+               
                 _displayPlantHealthList[i].text = ("Health: " + _greenhouseLink.GetComponent<Greenhouse>()._acceptedPlants[index].GetComponent<Plant>().GetHealth());
                 Debug.Log(_greenhouseLink.GetComponent<Greenhouse>()._acceptedPlants[index].GetComponent<Plant>().GetHealth());
-            }
-            if (i < _greenhouseLink.GetComponent<Greenhouse>()._acceptedPlants.Count)
-            {
-                _displayPlantCostsList[i].text = ("Price: " + _greenhouseLink.GetComponent<Greenhouse>()._acceptedPlants[index].GetComponent<Plant>().GetCurrentCost());
+                
+                _displayPlantCostsList[i].text = ("Price: $" + _greenhouseLink.GetComponent<Greenhouse>()._acceptedPlants[index].GetComponent<Plant>().GetCurrentCost());
                 Debug.Log(_greenhouseLink.GetComponent<Greenhouse>()._acceptedPlants[index].GetComponent<Plant>().GetCurrentCost());
-            }
-            else
-            {
-                NoPlant();
-                _deetsScreenLink.SetActive(false);
             }
         }
     }
@@ -159,6 +160,11 @@ public class UIController : MonoBehaviour
         _displayNoSupplements.text = ("You do not have any supplements.");
     }
 
+    public void SupplementUsedText()
+    {
+        _displaySupplementUsed.text = ("You have already used a supplement today, are you trying to kill your plants with love?");
+    }
+
     public void PlantHealingText()
     {
         _displayPlantHealing.text = ("You increased the health of your plants by " + (_greenhouseLink.GetComponent<Greenhouse>()._plantHealthIncrease) + " whole points !");
@@ -173,9 +179,9 @@ public class UIController : MonoBehaviour
         _displayPlantDisclaimer.text = ("*Price of the plant is modified by its current health value. \nIf your number of plants has reached ten, when you accept a plant, you will be selling your cheapest plant before planting it." + "\nCurrent Number of Plants: " + (_greenhouseLink.GetComponent<Greenhouse>()._acceptedPlants.Count) + "/10");
     }
 
-    public void SellingPlantDisclaimer()
+    public void SoldPlantText()
     {
-        _displayPlantSellingDisclaimer.text = ("*Price of the plant is modified by its current health value. When you sell a plant, you get its value added to your money, but it is gone for good."  + "\nCurrent Number of Plants: " + (_greenhouseLink.GetComponent<Greenhouse>()._acceptedPlants.Count) + "/10");
+        _displaySoldText.text = _greenhouseLink.GetComponent<Greenhouse>()._sold;
     }
     public void PlantDiedText()
     {
@@ -188,14 +194,16 @@ public class UIController : MonoBehaviour
 
     public void WinningText()
     {
-        _displayRestart.text = ("Your evil overloard are happy with your contributions and have bought all of your plants from you. Continue to satisfy them, or you might become food for your plants.");
+        _displayRestart.text = ("Your evil overlords are happy with your contributions and have bought all of your plants from you. Continue to satisfy them, or you might become food for your plants.");
     }
 
     // Update is called once per frame
     void Update()
     {
         //Displays the current money value.
-        _displayMoney.text = ("Money: " + (_greenhouseLink.GetComponent<Greenhouse>()._money.ToString()));
+        _displayMoney.text = ("Money: " + (_greenhouseLink.GetComponent<Greenhouse>()._money.ToString($"##.##")));
+        //Displays the current number of supplements.
+        _displaySupplements.text = ("Supplements: " + (_greenhouseLink.GetComponent<Greenhouse>()._supplementBudGrower.ToString()));
         //Displays the current day.
         _displayDay.text = ("Current Day: " + (_greenhouseLink.GetComponent<Greenhouse>()._endOfDay.ToString()));
         //Displays the temporary Name, Health, and Cost of plants when being created.
@@ -203,10 +211,8 @@ public class UIController : MonoBehaviour
         //_displayCurrentPlantName.text = (_greenhouseLink.GetComponent<Greenhouse>()._tempName) + " " + (_greenhouseLink.GetComponent<Greenhouse>()._tempName);
         _displayTempHealth.text = ("Health: " + (_greenhouseLink.GetComponent<Greenhouse>()._tempHealth.ToString()));
         _displayTempCost.text = ("Price: " + (_greenhouseLink.GetComponent<Greenhouse>()._maxTempCost.ToString("#.##")));
-        if (_greenhouseLink.GetComponent<Greenhouse>()._soldPlant == true)
-        {
-            _displaySoldText.text = ("You sold " + (_greenhouseLink.GetComponent<Greenhouse>()._tempName) + " " + (_greenhouseLink.GetComponent<Greenhouse>()._tempSuffix) + " for " + (_greenhouseLink.GetComponent<Greenhouse>()._currentTempCost.ToString("#.##.")));
-        }
+        _displayPlantSellingDisclaimer.text = ("*Price of the plant is modified by its current health value. When you sell a plant, you get its value added to your money, but it is gone for good." + "\nCurrent Number of Plants: " + (_greenhouseLink.GetComponent<Greenhouse>()._acceptedPlants.Count) + "/10");
+        
         if (_plantLink.GetComponent<Plant>()._plantDied == true)
         {
             Debug.Log("PLANT DED");
