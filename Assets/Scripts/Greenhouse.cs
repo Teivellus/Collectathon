@@ -23,8 +23,6 @@ public class Greenhouse : MonoBehaviour
     public GameObject _plantPrefab;
     //TEMPORARY PLANT INFO
     public GameObject _tempPlant;
-    //KEPT PLANT INFO
-    //public GameObject _acceptedPlant;
     //GAME OBJECT LINKS
     public GameObject _plantLink;
     public GameObject _uiLink;
@@ -36,10 +34,7 @@ public class Greenhouse : MonoBehaviour
     public List<GameObject> _acceptedPlants = new List<GameObject>();
     public List<int> _currentPlantCosts = new List<int>();
     public List<int> _currentPlantCostsIndex = new List<int>();
-    //public List<int> _deadPlantIndexList = new List<int>();
-    //public List<int> _plantIndex = new List<int>();
     //VARIABLES
-    //public bool _acceptedPlantClickedOn;
     public bool _soldPlant = false;
     public bool _tempClickedOn;
     public bool _noPlants = true;
@@ -68,7 +63,6 @@ public class Greenhouse : MonoBehaviour
         _supplementBudGrower = 0;
         _endOfDay = 1;
         _money = 10f;
-        //_plantPrefab.GetComponent<Plant>()._currentPlantIndex = 0;
         _plantPrefab.GetComponent<Plant>()._currentPlantHealth = 0;
     }
     // Start is called before the first frame update
@@ -82,27 +76,34 @@ public class Greenhouse : MonoBehaviour
         // Spawn the object, same rotation as the parent object. Add that new object to a List so we can keep track of it.
         _tempPlant = Instantiate(_plantPrefab, new Vector3(0, 0, 0), Quaternion.identity);
         // Tell the plant to create random values. It doesn't have a return value so we don't have to save anything.
-        _tempPlant.GetComponent<Plant>().PlantNameGenerator();
-        _tempName = _tempPlant.GetComponent<Plant>().GetName();
-        _tempPlant.GetComponent<Plant>().PlantSuffixGenerator();
-        _tempSuffix = _tempPlant.GetComponent<Plant>().GetSuffix();
-        _tempPlant.GetComponent<Plant>().PlantHealthGenerator();
-        _tempHealth = _tempPlant.GetComponent<Plant>().GetHealth();
-        _tempPlant.GetComponent<Plant>().PlantMaxCostGenerator();
-        _maxTempCost = _tempPlant.GetComponent<Plant>().GetMaxCost();
-        _tempPlant.GetComponent<Plant>().PlantCurrentCostGenerator();
-        _currentTempCost = _tempPlant.GetComponent<Plant>().GetCurrentCost();
-        _endOfDay += 1;
+        if (_tempPlant != null)
+        {
+            _tempPlant.GetComponent<Plant>().PlantNameGenerator();
+            _tempName = _tempPlant.GetComponent<Plant>().GetName();
+            _tempPlant.GetComponent<Plant>().PlantSuffixGenerator();
+            _tempSuffix = _tempPlant.GetComponent<Plant>().GetSuffix();
+            _tempPlant.GetComponent<Plant>().PlantHealthGenerator();
+            _tempHealth = _tempPlant.GetComponent<Plant>().GetHealth();
+            _tempPlant.GetComponent<Plant>().PlantMaxCostGenerator();
+            _maxTempCost = _tempPlant.GetComponent<Plant>().GetMaxCost();
+            _tempPlant.GetComponent<Plant>().PlantCurrentCostGenerator();
+            _currentTempCost = _tempPlant.GetComponent<Plant>().GetCurrentCost();
+            _endOfDay += 1;
+        }
         // This section lowers the health of all plants if supplements weren't used at the end of the day.
         if (_supplementUsed == false)
         {
-            _plantHealthDecrease = Random.Range(3, 7);
+            _plantHealthDecrease = Random.Range(2, 7);
 
             for (int i = 0; i < _acceptedPlants.Count; i++)
             {
                 _acceptedPlants[i].GetComponent<Plant>()._currentPlantHealth -= _plantHealthDecrease;
             }            
             _uiLink.GetComponent<UIController>().PlantDecayText();
+        }
+        if (_tempPlant == null)
+        {
+
         }
     }
 
@@ -172,7 +173,6 @@ public class Greenhouse : MonoBehaviour
             GameObject button = GameObject.FindWithTag("Plants");
             _currentPlantCosts.Clear();
             _currentPlantCostsIndex.Clear();
-            //_money = _money += (int)Math.Round(_acceptedPlants[i].GetComponent<Plant>()._currentPlantCost);
             //EndGame();
 
     }
@@ -180,6 +180,7 @@ public class Greenhouse : MonoBehaviour
     public void RejectPlant()
     {
         Destroy(_tempPlant);
+        _tempPlant = null;
         _currentPlantCosts.Clear();
     }
 
@@ -187,12 +188,6 @@ public class Greenhouse : MonoBehaviour
     {
         _selectedIndex = index;
     }
-
-    //public void SelectPlant()
-    //{
-    //    GameObject selectedPlant = _uiLink.GetComponent<UIController>().DisplayPublicPlantData();
-    //}
-
     public void SellPlant()
     {
         GameObject i;
@@ -263,7 +258,6 @@ public class Greenhouse : MonoBehaviour
                 if (_money >= 100f)
             {
                 //Show success text, and reset the game.
-                _uiLink.GetComponent<UIController>().WinningText();
                 foreach (GameObject g in GameObject.FindGameObjectsWithTag("Plants"))
                 {
                     Destroy(g);
@@ -276,7 +270,6 @@ public class Greenhouse : MonoBehaviour
             }
             else if (_money <= 100f)
             {
-                _uiLink.GetComponent<UIController>().GameOverText();
                 _supplementBudGrower = 0;
                 _endOfDay = 0;
                 foreach (GameObject g in GameObject.FindGameObjectsWithTag("Plants"))

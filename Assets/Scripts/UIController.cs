@@ -67,7 +67,7 @@ public class UIController : MonoBehaviour
 
     public void Problems(string errorReport)
     {
-
+        Debug.Log("You have encountered an extreme ERROR! SOMETHING DID NOT COMPUTE!");
     }
 
     public void NewPlantText()
