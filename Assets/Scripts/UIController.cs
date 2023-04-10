@@ -52,7 +52,7 @@ public class UIController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _displayStartingScene.text = ("You are the brand new gardener of a greenhouse owned by evil alien overlords. They have told you that you have twenty days to make them delicious plants to eat, or the next gardener will replace you. You have access to supplements that cost 10 money each, which keep your plants healthy and expensive.");
+
     }
 
     public void AddText(string textToAdd)
@@ -67,7 +67,7 @@ public class UIController : MonoBehaviour
 
     public void Problems(string errorReport)
     {
-        Debug.Log("You have encountered an extreme ERROR! SOMETHING DID NOT COMPUTE!");
+        Debug.LogError(errorReport);
     }
 
     public void NewPlantText()
@@ -82,7 +82,7 @@ public class UIController : MonoBehaviour
 
     public void NoSpace()
     {
-        _displayNoSpace.text = ("You did not have any space, so you sold 'lowest plant name, health, for price' to make space. You then planted " + (_greenhouseLink.GetComponent<Greenhouse>()._tempName) + " " + (_greenhouseLink.GetComponent<Greenhouse>()._tempSuffix) + " with " + (_greenhouseLink.GetComponent<Greenhouse>()._tempHealth.ToString()) + " health and a price of " + (_greenhouseLink.GetComponent<Greenhouse>()._currentTempCost.ToString("$##.##") + "."));
+        _displayNoSpace.text = ("You did not have any space, so you sold your cheapest plant to make space. You then planted " + (_greenhouseLink.GetComponent<Greenhouse>()._tempName) + " " + (_greenhouseLink.GetComponent<Greenhouse>()._tempSuffix));
     }
 
     public void NoPlant()
@@ -94,11 +94,11 @@ public class UIController : MonoBehaviour
     public void UpdatePlantList() {
         for (int i = 0; i < _displayPlantNamesList.Count; i++)
         {    
-             if (i < _greenhouseLink.GetComponent<Greenhouse>()._acceptedPlants.Count) {
-                _displayPlantNamesList[i].text = (_greenhouseLink.GetComponent<Greenhouse>()._acceptedPlants[i].GetComponent<Plant>().GetName()) + " " + (_greenhouseLink.GetComponent<Greenhouse>()._acceptedPlants[i].GetComponent<Plant>().GetSuffix());
-             } else {
-                _displayPlantNamesList[i].text = "Empty Plot";
-             }
+            if (i < _greenhouseLink.GetComponent<Greenhouse>()._acceptedPlants.Count) {
+            _displayPlantNamesList[i].text = (_greenhouseLink.GetComponent<Greenhouse>()._acceptedPlants[i].GetComponent<Plant>().GetName()) + " " + (_greenhouseLink.GetComponent<Greenhouse>()._acceptedPlants[i].GetComponent<Plant>().GetSuffix());
+            } else {
+            _displayPlantNamesList[i].text = "Empty Plot";
+            }
         }        
     }
 
@@ -114,7 +114,11 @@ public class UIController : MonoBehaviour
                 _cheapestPlantIndex = i;
                 //_currentPlantCosts[i] = (int)Math.Round(_acceptedPlants[i].GetComponent<Plant>()._currentPlantCost);
                 Debug.Log("Cheapest Plant is: " + (_cheapestPlant));
-            }            
+            }
+            else
+            {
+                Problems("You have encountered an extreme ERROR! SOMETHING DID NOT COMPUTE!");
+            }
         }
         return _cheapestPlant;
     }
@@ -125,7 +129,7 @@ public class UIController : MonoBehaviour
         if (index >= _greenhouseLink.GetComponent<Greenhouse>()._acceptedPlants.Count)
         {
             // The index is out of range, so do nothing or display an error message.
-            Debug.Log("Else is being used.");
+            //Debug.Log("Else is being used.");
             NoPlant();
             _deetsScreenLink.SetActive(false);
             return;
@@ -135,13 +139,13 @@ public class UIController : MonoBehaviour
             if (i < _greenhouseLink.GetComponent<Greenhouse>()._acceptedPlants.Count)
             {
                 _displayPublicPlantNamesList[i].text = (_greenhouseLink.GetComponent<Greenhouse>()._acceptedPlants[index].GetComponent<Plant>().GetName() + " " + (_greenhouseLink.GetComponent<Greenhouse>()._acceptedPlants[index].GetComponent<Plant>().GetSuffix()));
-                Debug.Log(_greenhouseLink.GetComponent<Greenhouse>()._acceptedPlants[index].GetComponent<Plant>().GetName() + " " + (_greenhouseLink.GetComponent<Greenhouse>()._acceptedPlants[index].GetComponent<Plant>().GetSuffix()));
+                //Debug.Log(_greenhouseLink.GetComponent<Greenhouse>()._acceptedPlants[index].GetComponent<Plant>().GetName() + " " + (_greenhouseLink.GetComponent<Greenhouse>()._acceptedPlants[index].GetComponent<Plant>().GetSuffix()));
                
                 _displayPlantHealthList[i].text = ("Health: " + _greenhouseLink.GetComponent<Greenhouse>()._acceptedPlants[index].GetComponent<Plant>().GetHealth());
-                Debug.Log(_greenhouseLink.GetComponent<Greenhouse>()._acceptedPlants[index].GetComponent<Plant>().GetHealth());
+                //Debug.Log(_greenhouseLink.GetComponent<Greenhouse>()._acceptedPlants[index].GetComponent<Plant>().GetHealth());
                 
                 _displayPlantCostsList[i].text = ("Price: $" + _greenhouseLink.GetComponent<Greenhouse>()._acceptedPlants[index].GetComponent<Plant>().GetCurrentCost());
-                Debug.Log(_greenhouseLink.GetComponent<Greenhouse>()._acceptedPlants[index].GetComponent<Plant>().GetCurrentCost());
+                //Debug.Log(_greenhouseLink.GetComponent<Greenhouse>()._acceptedPlants[index].GetComponent<Plant>().GetCurrentCost());
             }
         }
     }

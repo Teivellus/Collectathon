@@ -36,7 +36,6 @@ public class Greenhouse : MonoBehaviour
     public List<int> _currentPlantCostsIndex = new List<int>();
     //VARIABLES
     public bool _soldPlant = false;
-    public bool _tempClickedOn;
     public bool _noPlants = true;
     public string _tempName;
     public string _tempSuffix;
@@ -49,13 +48,8 @@ public class Greenhouse : MonoBehaviour
     public int _endOfDay;
     public int _selectedIndex;
     public int _plantRemovalIndex;
-    //PREFAB TRANSFORMS
-    public Transform _plantParentTop;
-    public Transform _plantParentMid;
-    public Transform _plantParentLow;
     //TEXT DISPLAYS
     public TMP_Text _infoText;
-
 
     public void Awake()
     {
@@ -103,7 +97,7 @@ public class Greenhouse : MonoBehaviour
         }
         if (_tempPlant == null)
         {
-
+            _uiLink.GetComponent<UIController>().Problems("Not working.");
         }
     }
 
@@ -117,7 +111,7 @@ public class Greenhouse : MonoBehaviour
             {
                 _cheapestPlant = ((int)Math.Round(_acceptedPlants[i].GetComponent<Plant>().GetCurrentCost()));
                 _cheapestPlantIndex = i;
-                Debug.Log("Cheapest Plant is: " + (_cheapestPlant));
+                //Debug.Log("Cheapest Plant is: " + (_cheapestPlant));
             }
         }
         return _cheapestPlant;
@@ -133,7 +127,7 @@ public class Greenhouse : MonoBehaviour
             {
                 _cheapestPlant = ((int)Math.Round(_acceptedPlants[i].GetComponent<Plant>().GetCurrentCost()));
                 _cheapestPlantIndex = i;
-                Debug.Log("The cheapest Plant's index is: " + (_cheapestPlantIndex));
+                //Debug.Log("The cheapest Plant's index is: " + (_cheapestPlantIndex));
             }
         }
         return _cheapestPlantIndex;
@@ -162,19 +156,17 @@ public class Greenhouse : MonoBehaviour
             int i = CheapestPlantIndex(_currentPlantCostsIndex);
             //_money += j;
             i = _plantRemovalIndex;
-            Debug.Log("It reads not null!");
-            Debug.Log("The cheapest plant in your greenhouse is: " + (CheapestPlant(_currentPlantCosts)));
+            //Debug.Log("It reads not null!");
+            //Debug.Log("The cheapest plant in your greenhouse is: " + (CheapestPlant(_currentPlantCosts)));
             //Report that there are no spaces left.
             _uiLink.GetComponent<UIController>().NoSpace();
         // Find lowest value plant. Remove plant. Add cost of plant to wallet. Play sell noise. Add new plant.
-            Debug.Log("You are DELETING: " + _acceptedPlants[i].GetComponent<Plant>()._currentPlantName);
+            //Debug.Log("You are DELETING: " + _acceptedPlants[i].GetComponent<Plant>()._currentPlantName);
             _acceptedPlants.RemoveAt(i);
-            Debug.Log("PLANT NAMES ARE BEING CALLED");
+            //Debug.Log("PLANT NAMES ARE BEING CALLED");
             GameObject button = GameObject.FindWithTag("Plants");
             _currentPlantCosts.Clear();
             _currentPlantCostsIndex.Clear();
-            //EndGame();
-
     }
 
     public void RejectPlant()

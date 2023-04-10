@@ -6,27 +6,17 @@ using UnityEngine.UI;
 
 public class Plant : MonoBehaviour
 {
-
-    //public List<TMP_Text> _plantNameTextBoxList = new List<TMP_Text>();
     //Lists
-    //public Button _plantButton;
-    //public List<Button> _plantButtons = new List<Button>();
     public List<string> _plantNames = new List<string>();
     public List<string> _plantSuffix = new List<string>();
-    // public List<int> _plantHealth = new List<int>();
     public float _plantHealth = 1;
     public float _plantCost = 0f;
-
-    //Clicked Bool
-    public bool _plantButtonClicked;
-
     //Plant prefab info
     public string _currentPlantName;
     public string _currentPlantSuffix;
     public float _currentPlantHealth;
     public float _maxPlantCost;
     public float _currentPlantCost;
-    //public int _currentPlantIndex;
     public bool _plantDied;
 
     void Awake()
@@ -86,6 +76,12 @@ public class Plant : MonoBehaviour
         _plantSuffix.Add("Moss");
         _plantSuffix.Add("Shrub");
         _plantSuffix.Add("Bamboo");
+        _plantSuffix.Add("Fungus");
+        _plantSuffix.Add("Hedge");
+        _plantSuffix.Add("Fly Trap");
+        _plantSuffix.Add("Palm");
+        _plantSuffix.Add("Pine");
+        _plantSuffix.Add("Blossom");
 
         //PLANT HEALTH DEFAULT VALUE
         _plantHealth = 100f;
@@ -99,17 +95,6 @@ public class Plant : MonoBehaviour
     {
 
     }
-
-    public void OnButtonClicked()
-    {
-        _plantButtonClicked = true;
-        Debug.Log("THIS NEEDS TO OPEN PLANT DETAIL SCREEN FOR SELLING");
-        Debug.Log(_currentPlantName + " " + _currentPlantSuffix);
-        Debug.Log(_currentPlantCost);
-        Destroy(gameObject);
-        //_plantButtonClicked = false;
-    }
-
     public void PlantNameGenerator(){
         _currentPlantName = _plantNames[Random.Range(0, _plantNames.Count)];
     }
@@ -138,7 +123,6 @@ public class Plant : MonoBehaviour
     public void PlantMaxCostGenerator()
     {
         _maxPlantCost = _plantCost;
-        //_currentPlantCost /= (_currentPlantHealth / 100);
     }
 
     public float GetMaxCost(){
@@ -159,14 +143,6 @@ public class Plant : MonoBehaviour
     {
         Destroy(gameObject);
     }
-
-    //public void PlantIndexGenerator(){
-    //    _currentPlantIndex = _plantIndex += 1;
-    //}
-
-    //public int GetIndex(){
-    //    return _currentPlantIndex;    
-    //}
 
     // Update is called once per frame
     void Update()
